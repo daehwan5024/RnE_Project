@@ -15,13 +15,8 @@ def findaruco(img, markerSize = 6, totalMarkers=50, draw=True):
     bboxs, ids, rejected = aruco.detectMarkers(imgGray, arucoDict, parameters=arucoParam)
     return ids, bboxs
 
-def getWhere(bbox):
-    print(type(bbox))
-    print(bbox)
-    if(len(bbox)==0):
-        return -1, -1
-    x = np.reshape(bbox, (2,4))
-    return np.sum(x, axis=1)/4
+def getWhere(bboxs):
+
 
 def main():
     cap = cv2.VideoCapture(0)
@@ -30,13 +25,16 @@ def main():
     cap.set(cv2.CAP_PROP_XI_FRAMERATE, 60.0)
     while(True):
         ret, img = cap.read()
-        if(ret == False):
-            continue
         cv2.imshow('test', img)
-        id, bbox = findaruco(img)
-        center_x, center_y = getWhere(bbox)
-        print(x)
-        print(y)
+        ids, bboxs = findaruco(img)
+
+        if(type(ids)!='NoneType' and type(bboxs)!='NoneType'):
+            print(bboxs[0][0][0][0]+bboxs[0][0][0][1])
+            print(bboxs[0][0][1][0]+bboxs[0][0][1][1])
+            print(bboxs[0][0][1][0]+bboxs[0][0][1][1])
+            print(bboxs[0][0][1][0]+bboxs[0][0][1][1])
+
+
         if cv2.waitKey(1) & 0xff == ord('q'):
             break
 
