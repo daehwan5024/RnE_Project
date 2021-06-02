@@ -1,7 +1,6 @@
 import numpy as np
 
 class controll:
-
     def __init__(self, goal, K_PID, dt):
         self.goal = goal
         self.K = K_PID
