@@ -2,26 +2,18 @@ import numpy as np
 
 class controll:
 
-    def __init__(self, goal):
+    def __init__(self, goal, K_PID, dt):
         self.goal = goal
+        self.K = K_PID
+        self.dt = dt
+        self.previous = np.array([0,0])
+        self.Integral = np.array([0,0])
+        print(self.dt)
 
     def get_speed(self, location):
-        self.factor = self.goal - location
-        self.way = self.factor/abs(self.factor)
-        if abs(self.factor[0]) / 100 >= 1:
-            x_v = (20 + abs((self.factor[0]) / 100) * 3) * self.way[0]
-        elif abs(self.factor[0]) / 10 >= 1:
-            x_v = (10 + abs(self.factor[0]) / 10) * self.way[0]
-        else:
-            x_v = (10 + abs(self.factor[0])) * self.way[0]
-
-        if abs(self.factor[1]) / 100 >= 1:
-            y_v = (20 + abs((self.factor[1]) / 100) * 3) * self.way[1]
-        elif abs(self.factor[1]) / 10 >= 1:
-            y_v = (10 + abs(self.factor[1]) / 10) * self.way[1]
-        else:
-            y_v = (10 + abs(self.factor[1])) * self.way[1]
-
-        self.velocity = np.array([x_v, y_v])
+        self.factor = (self.goal - location)
+        self.Integral = self.Integral+self.factor*self.dt
+        self.velocity = self.factor*self.K[0] + self.Integral*self.K[1] + ((self.factor - self.previous)/self.dt)*self.K[2]
+        self.previous = self.factor
 
         return self.velocity

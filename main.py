@@ -21,19 +21,21 @@ def findaruco(img, markerSize = 4, totalMarkers=50):
     return ids, bboxs
 
 def getWhere(bbox):
-    #print(bbox)
+    print(bbox)
     if(len(bbox)==0):
         return -1, -1
     a = np.reshape(bbox, (2,4))
     return np.sum(a, axis=1)/4
 
 
-controller = controll(goal)
+
 
 cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 cap.set(cv2.CAP_PROP_FPS, 30.0)
+
+controller = controll(goal, np.array([1,0.3,0.2]), 1/cap.get(cv2.CAP_PROP_FPS))
 
 frames = 0
 start = time.time()
@@ -44,7 +46,7 @@ while(True):
         continue
     cv2.imshow('test', img)
     id, bbox = findaruco(img)
-#    print(controller.get_speed(getWhere(bbox)))
+    print(controller.get_speed(getWhere(bbox)))
 
     if (cv2.waitKey(1) & 0xff) == ord('q'):
         break
