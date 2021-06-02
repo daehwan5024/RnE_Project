@@ -1,5 +1,6 @@
-import cv2
 from djitellopy import tello
+import numpy as np
+from time import sleep
 
 daehwan = tello.Tello()
 print(me.get_battery)
@@ -28,3 +29,5 @@ elif abs(x_factor) / 10 >= 1:
     y_v = (10 + abs(y_factor) / 10) * yway
 else:
     y_v = (10 + abs(y_factor)) * yway
+
+
