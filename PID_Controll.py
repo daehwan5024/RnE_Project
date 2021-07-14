@@ -11,8 +11,7 @@ class controll:
 
     def get_speed(self, location):
         self.factor = (self.goal - location) #오차 계산
-        self.velocity = self.factor*self.K[0] + self.Integral*self.K[1] +\
-                        ((self.factor - self.previous)/self.dt)*self.K[2] #PID제어를 위한 값 계산
+        self.velocity = self.factor*self.K[0] + self.Integral*self.K[1] + ((self.factor - self.previous)/self.dt)*self.K[2] #PID제어를 위한 값 계산
         self.Integral = self.Integral+self.factor*self.dt #적분 값 계산
         self.previous = self.factor #바로 전의 값을 현재 값으로 업데이트
 
