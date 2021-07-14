@@ -3,16 +3,14 @@ import cv2.aruco as aruco
 from djitellopy import tello
 import numpy as np
 from PID_Controll import controll
-import time
 from Graph_draw import Graph_drawer
 
 '''루코마커의 중앙 값 결정'''
 def getWhere(bbox): #루코마커의 중앙 위치 계산
-    print(bbox)
     if(len(bbox)==0):
         return -1, -1
-    a = np.reshape(bbox, (2, 4))
-    return np.sum(a, axis=1)/4
+    a = np.reshape(bbox, (4, 2))
+    return np.sum(a, axis=0)/4
 
 '''루코마커 탐지'''
 def findaruco(img, markerSize = 4, totalMarkers=50): #루코마커의 위치 반환
@@ -45,6 +43,7 @@ cap.set(cv2.CAP_PROP_FPS, 30.0) #프레임수 결정
 controller = controll(goal, np.array([0.1, 0.03, 0.02]), 1/cap.get(cv2.CAP_PROP_FPS)) #PID제어를 위한 Class 정의
 
 '''실제 제어'''
+drone.takeoff()
 while True:
     ret, img = cap.read() #웹캠에서 사진 불러오기
     if not ret:
@@ -52,13 +51,12 @@ while True:
     cv2.imshow('test', img) #창에 사진 띄우기
     id, bbox = findaruco(img) #루코마커의 id와 4귀퉁이 찾기
     location = getWhere(bbox)
+    print(location)
     draw.append(location)
     velocity = controller.get_speed(location) #제어값 계산
-    print(velocity)
-    drone.send_rc_control(int(velocity[0]), 0, int(velocity[1]), 0) #제어 값 전송
-    draw.draw()
+    drone.send_rc_control(int(velocity[0]), 0, -int(velocity[1]), 0) #제어 값 전송
 
     if (cv2.waitKey(1) & 0xff) == ord('q'):
         break
-draw.draw()
+drone.land()
 cap.release()

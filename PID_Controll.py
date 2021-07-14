@@ -15,4 +15,4 @@ class controll:
         self.Integral = self.Integral+self.factor*self.dt #적분 값 계산
         self.previous = self.factor #바로 전의 값을 현재 값으로 업데이트
 
-        return self.velocity #계산한 값 리턴
+        return self.velocity/10 #계산한 값 리턴
