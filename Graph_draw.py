@@ -19,6 +19,7 @@ class Graph_drawer:
         self.y = np.append(self.y, location[1])
         self.t = np.append(self.t, time.time()-self.start_time)
 
+
     def draw(self):
         plt.subplot(2, 1, 1)
         plt.plot(self.t, self.x, '.-')
