@@ -4,6 +4,7 @@
 
 
 conda create -n Tello_Marker_Python_env python=3.8
+
 conda env list
 
 # activate 가상환경 시작
@@ -22,6 +23,7 @@ deactivate
 
 # install module
 conda install spyder
+
 conda install -c conda-forge basemap
 
 
