@@ -11,7 +11,7 @@ class Graph_drawer:
         self.start_time = time.time()
 
     def append(self, location):
-        if(location[0]==-1 and location[1]==-1):
+        if location[0] == -1 and location[1] == -1:
             return
         self.x = np.append(self.x, location[0])
         self.y = np.append(self.y, location[1])
@@ -22,4 +22,5 @@ class Graph_drawer:
         plt.plot(self.t, self.x, '.-')
         plt.subplot(2, 1, 2)
         plt.plot(self.t, self.y, '.-')
+        plt.savefig('Test.png')
         plt.show()
