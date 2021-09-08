@@ -3,7 +3,7 @@
 # anaconda environment
 
 
-conda create -n Tello_Marker_Python_env python=3.8
+conda create -n Tello_Marker_Python_env python=3.9
 
 conda env list
 
@@ -22,9 +22,9 @@ windows
 deactivate
 
 # install module
-conda install spyder opencv-contrib-python matplotlib
+conda install spyder matplotlib
 
-pip install djitellopy
+pip install djitellopy opencv-python opencv-contrib-python
 
 
 
