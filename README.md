@@ -23,8 +23,9 @@ deactivate
 
 # install module
 conda install spyder opencv-contrib-python matplotlib
+
 pip install djitellopy
-conda install -c conda-forge basemap
+
 
 
 # 가상환경 내보내기 (export)
