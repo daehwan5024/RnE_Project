@@ -22,8 +22,8 @@ windows
 deactivate
 
 # install module
-conda install spyder
-
+conda install spyder opencv-contrib-python matplotlib
+pip install djitellopy
 conda install -c conda-forge basemap
 
 
